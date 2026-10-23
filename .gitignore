@@ -1,0 +1,11 @@
+# Python / 虛擬環境
+.venv/
+__pycache__/
+*.pyc
+
+# 本機產生的檔案
+error.txt
+
+# 題庫只上傳 data/questions.json（給 GitHub Pages 用），其他備份檔留在本機
+data/questions.before-myimport.json
+data/questions_backup.txt

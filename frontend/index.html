@@ -1,0 +1,113 @@
+<!DOCTYPE html>
+<html lang="zh-Hant">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>日文單字測驗機</title>
+<link rel="stylesheet" href="style.css?v=5" />
+</head>
+<body>
+<div class="app">
+  <header>
+    <h1>日文單字測驗機</h1>
+    <p class="sub">資料來源：<a href="https://www.sigure.tw/" target="_blank" rel="noopener">sigure.tw 時雨的閱讀空間</a>（僅供個人學習使用）</p>
+  </header>
+
+  <nav class="tabs">
+    <button class="tab-btn active" data-tab="bank">題庫管理</button>
+    <button class="tab-btn" data-tab="setup">開始測驗</button>
+    <button class="tab-btn" data-tab="filter">篩選單字</button>
+  </nav>
+
+  <!-- 題庫管理 -->
+  <section id="tab-bank" class="tab-panel active">
+    <div id="scrapeSection">
+      <h2>1. 加入單字頁面</h2>
+      <p class="hint">貼上 sigure.tw 的單字頁面網址，一行一個，例如：<br>
+        https://www.sigure.tw/learn-japanese/vocabulary/n4/01</p>
+      <textarea id="urlInput" rows="5" placeholder="https://www.sigure.tw/learn-japanese/vocabulary/n4/01
+https://www.sigure.tw/learn-japanese/vocabulary/n4/02"></textarea>
+      <button id="scrapeBtn">抓取並加入題庫</button>
+      <div id="scrapeResult" class="result-box"></div>
+    </div>
+    <p id="staticNotice" class="hint" style="display:none;">線上版只能測驗。要加入新單元，請在電腦用 RunMe.bat 抓取後再 push 上 GitHub。篩選單字的設定只會存在這台裝置。</p>
+
+    <h2>目前題庫</h2>
+    <div id="unitList" class="unit-list"></div>
+  </section>
+
+  <!-- 測驗設定 -->
+  <section id="tab-setup" class="tab-panel">
+    <h2>2. 測驗設定</h2>
+
+    <div class="setup-block">
+      <h3>選擇單元</h3>
+      <div id="unitCheckboxes" class="unit-checkboxes"></div>
+      <button id="selectAllBtn" type="button" class="link-btn">全選</button>
+      <button id="selectNoneBtn" type="button" class="link-btn">全不選</button>
+    </div>
+
+    <div class="setup-block">
+      <h3>出題模式</h3>
+      <label><input type="radio" name="mode" value="cn2kana" checked /> 中文 → 打假名</label>
+      <label><input type="radio" name="mode" value="jp2kana" /> 日文 → 打假名</label>
+      <label><input type="radio" name="mode" value="mixed" /> 混合（隨機）</label>
+    </div>
+
+    <div class="setup-block">
+      <h3>題數</h3>
+      <input type="number" id="questionCount" min="1" value="20" />
+      <span class="hint-inline">（超過題庫數量會自動取全部）</span>
+    </div>
+  </section>
+
+  <!-- 篩選單字 -->
+  <section id="tab-filter" class="tab-panel">
+    <h2>篩選單字</h2>
+    <p class="hint">以下列出「開始測驗」頁面目前勾選單元的單字，取消勾選想要不出現在測驗裡的單字。</p>
+    <div id="filterUnitList" class="filter-unit-list"></div>
+  </section>
+
+  <!-- 測驗畫面 -->
+  <section id="tab-quiz" class="tab-panel">
+    <div class="quiz-progress">
+      <span id="quizProgress">1 / 20</span>
+      <span id="quizScore">對 0 ‧ 錯 0</span>
+    </div>
+
+    <div class="quiz-card">
+      <div class="quiz-prompt-label" id="promptLabel"></div>
+      <div class="quiz-prompt" id="promptText"></div>
+
+      <input type="text" id="answerInput" autocomplete="off" placeholder="請輸入平假名/片假名" />
+
+      <div class="quiz-actions">
+        <button id="submitAnswerBtn">送出答案（Enter）</button>
+        <button id="nextQuestionBtn" style="display:none;">下一題（Enter）</button>
+      </div>
+
+      <div id="feedback" class="feedback"></div>
+    </div>
+
+    <button id="quitQuizBtn" class="link-btn">結束測驗</button>
+  </section>
+
+  <!-- 結果畫面 -->
+  <section id="tab-result" class="tab-panel">
+    <h2>測驗結果</h2>
+    <p id="resultSummary" class="result-summary"></p>
+    <h3>答錯的題目</h3>
+    <div id="wrongList" class="wrong-list"></div>
+    <button id="restartBtn">回到測驗設定</button>
+  </section>
+
+  <!-- 開始測驗：固定在畫面左下角，任何分頁都能按 -->
+  <div id="startFloating" class="start-floating">
+    <p id="startFloatingError" class="error-text"></p>
+    <button id="startQuizBtn">▶ 開始測驗</button>
+  </div>
+</div>
+
+<script src="quiz.js?v=5"></script>
+</body>
+</html>
