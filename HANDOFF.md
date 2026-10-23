@@ -5,7 +5,8 @@
 - **使用者決定**：題庫 `data/questions.json` 跟網頁一起公開（已知 sigure.tw 版權風險，使用者接受）。
 - **改了哪些檔**：`frontend/quiz.js`、`frontend/index.html`（`#scrapeSection`、`#staticNotice`，資源版本 v=5）、`app.py`、`.gitignore`（改成只排除備份檔）、新增 `.github/workflows/pages.yml`（push main → 複製 frontend/* + questions.json 發布）。
 - **已驗證**：node 語法檢查、本機後端 API、模擬靜態站（/api/health 404、questions.json 200）。尚未在真的手機瀏覽器上測試。
-- **待辦**：使用者要 git init、建 repo、push，並在 Settings → Pages → Source 選 GitHub Actions。
+- **已上線**：repo https://github.com/w455up/japanese-quiz （public），網站 https://w455up.github.io/japanese-quiz/ 。git 身分設在 repo 本地（w455up + GitHub noreply email）。gh 已有 workflow 權限。
+- **之後更新題庫**：電腦抓完 → commit `data/questions.json` → push，Actions 自動部署。
 
 ## 2026-10-24 — GitHub 上傳前安全檢查
 - **做了什麼**：掃描所有程式與資料檔（排除 .venv），沒有 API key、token、密碼或個人路徑/email。程式只連 sigure.tw，沒有用到任何需要金鑰的服務。
